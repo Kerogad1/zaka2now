@@ -23,7 +23,7 @@ def slugify(text):
 
 for category, feed_url in rss_feeds.items():
     feed = feedparser.parse(feed_url)
-    for entry in feed.entries[:1]:
+    for entry in feed.entries[:3]:  # أو [:5] لو حابب
         title = entry.title
         link = entry.link
         content = entry.summary if hasattr(entry, 'summary') else ''
