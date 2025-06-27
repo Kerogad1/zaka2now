@@ -1,36 +1,20 @@
-name: Update News Automatically
-
+name: Auto Update News
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'  # Run daily at midnight UTC
-
+    - cron: '0 0 * * *'
 jobs:
-  update-news:
+  update:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          pip install torch torchvision torchaudio
-          pip install transformers feedparser protobuf
-
-      - name: Run the news fetch script
-        run: |
-          python main_real.py
-
-      - name: Commit and push changes
-        run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-          git add articles/*.html articles/index.json || echo "No new articles"
-          git commit -m "Auto update articles" || echo "Nothing to commit"
-          git push || echo "Nothing to push"
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with: python-version: '3.10'
+    - run: pip install feedparser
+    - run: python main_real.py
+    - run: |
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+        git add articles/*.html articles/index.json
+        git commit -m "Auto-update articles" || echo "No changes"
+        git push
