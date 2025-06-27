@@ -4,7 +4,7 @@ from transformers import pipeline
 import os
 import re
 
-summarizer = pipeline("summarization", model="csebuetnlp/mT5_multilingual_XLSum")
+summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
 rss_feeds = {
     "سياسة": "https://www.france24.com/ar/tag/سياسة/rss",
