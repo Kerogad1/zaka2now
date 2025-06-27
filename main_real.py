@@ -1,10 +1,15 @@
 import feedparser
 from datetime import datetime
+from bs4 import BeautifulSoup
 import os
 import re
-from bs4 import BeautifulSoup
 
-rss_feeds = {'سياسة': 'https://www.france24.com/ar/tag/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9/rss', 'اقتصاد': 'https://www.france24.com/ar/tag/%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF/rss', 'تكنولوجيا': 'https://www.france24.com/ar/tag/%D8%AA%D9%83%D9%86%D9%88%D9%84%D9%88%D8%AC%D9%8A%D8%A7/rss', 'ذكاء اصطناعي': 'https://news.google.com/rss/search?q=الذكاء+الاصطناعي&hl=ar&gl=EG&ceid=EG:ar'}
+rss_feeds = {
+    "سياسة": "https://www.france24.com/ar/tag/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9/rss",
+    "اقتصاد": "https://www.france24.com/ar/tag/%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF/rss",
+    "تكنولوجيا": "https://www.france24.com/ar/tag/%D8%AA%D9%83%D9%86%D9%88%D9%84%D9%88%D8%AC%D9%8A%D8%A7/rss",
+    "ذكاء اصطناعي": "https://news.google.com/rss/search?q=الذكاء+الاصطناعي&hl=ar&gl=EG&ceid=EG:ar"
+}
 
 output_dir = "articles"
 os.makedirs(output_dir, exist_ok=True)
@@ -18,10 +23,10 @@ for category, feed_url in rss_feeds.items():
         title = entry.title
         link = entry.link
         content = entry.summary if hasattr(entry, 'summary') else ''
-        soup = BeautifulSoup(content, 'html.parser')
-        paragraphs = soup.find_all('p')
-        text = [p.get_text() for p in paragraphs] if paragraphs else [content]
-        summary = "\n".join(text[:15]) if text else content[:500]
+        soup = BeautifulSoup(content, "html.parser")
+        clean_text = soup.get_text().strip()
+
+        summary = clean_text[:800] + "..." if len(clean_text) > 800 else clean_text
 
         slug = slugify(title)
         filename = os.path.join(output_dir, f"{slug}.html")
@@ -32,10 +37,10 @@ for category, feed_url in rss_feeds.items():
   <meta charset='UTF-8'>
   <title>{title}</title>
   <style>
-    body { font-family: Tahoma, sans-serif; padding: 20px; background-color: #f9f9f9; }
-    h1 { color: #1a1a1a; }
-    p { font-size: 18px; line-height: 1.7; }
-    a { color: #0077cc; text-decoration: none; }
+    body {{ font-family: Tahoma, sans-serif; padding: 20px; background-color: #f9f9f9; }}
+    h1 {{ color: #1a1a1a; }}
+    p {{ font-size: 18px; line-height: 1.7; }}
+    a {{ color: #0077cc; text-decoration: none; }}
   </style>
 </head>
 <body>
