@@ -3,7 +3,7 @@ name: Update News Automatically
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'  # Run daily at midnight UTC
+    - cron: '0 0 * * *'  # كل يوم الساعة 12 صباحًا
 
 jobs:
   update-news:
@@ -20,7 +20,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install feedparser beautifulsoup4
+          pip install torch torchvision torchaudio
+          pip install feedparser transformers
 
       - name: Run the news fetch script
         run: |
