@@ -1,5 +1,5 @@
-body { font-family: Tahoma, sans-serif; margin: 0; background: #fafafa; }
-header, footer { background: #2c3e50; color: white; text-align: center; padding: 1em 0; }
-nav a { margin: 0 15px; color: #f1f1f1; text-decoration: none; }
-main { padding: 20px; }
-h2 a { color: #2c3e50; }
+body { margin:0; font-family: Tahoma, sans-serif; background:#0d1117; color:#e0e0e0;}
+header { background:#000; color:#00ccff; padding:1rem; text-align:center;}
+nav a { color:#00ccff; margin:0 10px; text-decoration:none;}
+main { padding:2rem;}
+footer { background:#000; color:#888; text-align:center; padding:1rem; margin-top:2rem;}

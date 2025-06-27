@@ -1,12 +1,10 @@
-document.addEventListener("DOMContentLoaded", () => {
-  fetch('articles/index.json')
-    .then(response => response.json())
-    .then(data => {
-      const container = document.getElementById("articles-container");
-      data.forEach(article => {
-        const div = document.createElement("div");
-        div.innerHTML = `<h2><a href="${article.link}">${article.title}</a></h2><p>${article.summary}</p>`;
-        container.appendChild(div);
-      });
+fetch('articles/index.json')
+  .then(res=>res.json())
+  .then(data=>{
+    const c=document.getElementById('articles-container'); c.innerHTML='';
+    data.articles.forEach(a=>{
+      const d=document.createElement('div');
+      d.innerHTML=`<h2><a href="articles/${a.filename}">${a.title}</a></h2><p>${a.summary}</p>`;
+      c.appendChild(d);
     });
 });
