@@ -1,34 +1,49 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>Zaka2 Now - ذكاء الآن</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Zaka Now - الصفحة الرئيسية</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 0; background: #f9f9f9; color: #222; direction: rtl; }
+    header, footer { background: #007BFF; color: white; padding: 15px; text-align: center; }
+    nav a { margin: 0 10px; color: white; text-decoration: none; font-weight: bold; font-size: 18px; }
+    nav a:hover { text-decoration: underline; }
+    main { padding: 20px; }
+    article { background: white; padding: 15px; margin-bottom: 15px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    article h2 { font-size: 22px; margin-bottom: 10px; }
+    article p { font-size: 18px; }
+    @media (max-width: 600px) {
+        nav a { display: block; margin: 10px 0; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>🧠 Zaka2 Now</h1>
-        <nav>
-            <a href="#">الرئيسية</a>
-            <a href="#">سياسة</a>
-            <a href="#">تكنولوجيا</a>
-            <a href="#">اقتصاد</a>
-            <a href="#">رياضة</a>
-            <a href="#">رأي الذكاء الاصطناعي</a>
-        </nav>
-    </header>
-    <main id="content">
-        <section class="latest">
-            <h2>📰 أحدث المقالات (تحديث تلقائي)</h2>
-            <div id="articles">
-                <p>📡 جاري تحميل الأخبار من الذكاء الاصطناعي...</p>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>© 2025 Zaka2 Now - كل الحقوق محفوظة</p>
-    </footer>
-    <script src="main.js"></script>
+  <header>
+    <h1>🧠 Zaka Now</h1>
+    <nav>
+      <a href="index.html">الرئيسية</a>
+      <a href="sections/politics.html">سياسة</a>
+      <a href="sections/economy.html">اقتصاد</a>
+      <a href="sections/tech.html">تكنولوجيا</a>
+      <a href="sections/ai.html">ذكاء صناعي</a>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <h2><a href="articles/ai-climate.html">📌 الذكاء الاصطناعي في مواجهة تغير المناخ</a></h2>
+      <p>AI يساعد الباحثين على التنبؤ بالكوارث الطبيعية ومعالجة البيانات البيئية بسرعة.</p>
+    </article>
+    <article>
+      <h2><a href="articles/inflation-impact.html">📈 ارتفاع التضخم وتأثيره على الأسواق</a></h2>
+      <p>تحليل AI يُظهر أن الارتفاع الأخير في التضخم يؤثر بشكل مباشر على الإنفاق الاستهلاكي.</p>
+    </article>
+    <article>
+      <h2><a href="articles/gpt5-launch.html">🤖 إطلاق GPT-5 بقدرات خرافية</a></h2>
+      <p>النموذج الجديد يقدر يلخص الأخبار، يكتب مقالات، ويحلل اقتصادياً بدقة.</p>
+    </article>
+  </main>
+  <footer>
+    <p>© 2025 Zaka Now | يتم التحديث تلقائيًا كل 24 ساعة</p>
+  </footer>
 </body>
 </html>
