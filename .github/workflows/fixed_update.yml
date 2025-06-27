@@ -21,6 +21,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          pip install torch torchvision torchaudio
           pip install feedparser transformers
 
       - name: Run the news fetch script
