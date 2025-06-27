@@ -1,13 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8">
-  <title>Zaka Now</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Latest global AI news, tech, economy, and politics. Zaka Now."/>
+  <meta name="keywords" content="Zaka Now, news, AI, technology, economy, politics, trending"/>
+  <title>Zaka Now - Your Daily AI News</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <h1>Welcome to Zaka Now</h1>
-  <div id="articles-container"></div>
+  <header>
+    <h1>Zaka Now</h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#trending">Trending</a>
+      <a href="#search">Search</a>
+      <a href="#subscribe">Subscribe</a>
+      <a href="#comments">Comments</a>
+    </nav>
+  </header>
+  <section id="home">
+    <h2>📰 Latest News</h2>
+    <div class="articles" id="article-list"></div>
+  </section>
+  <section id="trending">
+    <h2>🔥 Trending Articles</h2>
+    <div class="articles" id="trending-list"></div>
+  </section>
+  <section id="search">
+    <h2>🔍 Search Articles</h2>
+    <input type="text" id="search-input" placeholder="Search..."/>
+    <div class="articles" id="search-results"></div>
+  </section>
+  <section id="subscribe">
+    <h2>📧 Subscribe</h2>
+    <form id="subscribe-form">
+      <input type="email" id="email" placeholder="Your email" required/>
+      <button type="submit">Subscribe</button>
+    </form>
+    <div id="subscribe-msg"></div>
+  </section>
+  <section id="comments">
+    <h2>💬 Comments</h2>
+    <div id="disqus_thread"></div>
+  </section>
+  <div class="ads">AD SPACE</div>
+  <footer>
+    <p>&copy; 2025 Zaka Now. All rights reserved.</p>
+  </footer>
+  <script>
+    var disqus_config = function () {
+      this.page.url = window.location.href;
+      this.page.identifier = "zakanow";
+    };
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://zakanow.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head||d.body).appendChild(s);
+    })();
+  </script>
   <script src="main.js"></script>
 </body>
 </html>
