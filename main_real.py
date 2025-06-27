@@ -1,16 +1,16 @@
-
 import feedparser
 from datetime import datetime
 from transformers import pipeline
 import os
 import re
 
+# Arabic summarization pipeline
 summarizer = pipeline("summarization", model="csebuetnlp/mT5_multilingual_XLSum")
 
 rss_feeds = {
-    "سياسة": "https://www.france24.com/ar/tag/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9/rss",
-    "اقتصاد": "https://www.france24.com/ar/tag/%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF/rss",
-    "تكنولوجيا": "https://www.france24.com/ar/tag/%D8%AA%D9%83%D9%86%D9%88%D9%84%D9%88%D8%AC%D9%8A%D8%A7/rss",
+    "سياسة": "https://www.france24.com/ar/tag/سياسة/rss",
+    "اقتصاد": "https://www.france24.com/ar/tag/اقتصاد/rss",
+    "تكنولوجيا": "https://www.france24.com/ar/tag/تكنولوجيا/rss",
     "ذكاء اصطناعي": "https://news.google.com/rss/search?q=الذكاء+الاصطناعي&hl=ar&gl=EG&ceid=EG:ar"
 }
 
@@ -20,7 +20,7 @@ os.makedirs(output_dir, exist_ok=True)
 def slugify(text):
     return re.sub(r'\W+', '-', text.strip().lower())
 
-all_articles = []
+article_links = []
 
 for category, feed_url in rss_feeds.items():
     feed = feedparser.parse(feed_url)
@@ -36,6 +36,7 @@ for category, feed_url in rss_feeds.items():
         slug = slugify(title)
         filename = f"{slug}.html"
         filepath = os.path.join(output_dir, filename)
+
         with open(filepath, "w", encoding="utf-8") as f:
             f.write(f"""<!DOCTYPE html>
 <html lang='ar' dir='rtl'>
@@ -57,39 +58,27 @@ for category, feed_url in rss_feeds.items():
 </body>
 </html>""")
 
-        all_articles.append({"title": title, "filename": filename, "category": category})
+        article_links.append((title, filename, summary))
 
-# Generate index.html
-index_html = '''<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+# توليد ملف index.html داخل articles/
+index_path = os.path.join(output_dir, "index.html")
+with open(index_path, "w", encoding="utf-8") as f:
+    f.write(f"""<!DOCTYPE html>
+<html lang='ar' dir='rtl'>
 <head>
-  <meta charset="UTF-8">
-  <title>Zaka Now - أخبارك اليومية</title>
+  <meta charset='UTF-8'>
+  <title>أحدث المقالات</title>
   <style>
-    body { font-family: Tahoma, sans-serif; padding: 20px; background-color: #fff; color: #333; }
-    h1 { color: #1a1a1a; text-align: center; }
-    h2 { color: #0077cc; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
-    ul { list-style-type: none; padding: 0; }
-    li { margin: 8px 0; }
-    a { color: #cc0000; text-decoration: none; font-size: 18px; }
-    footer { margin-top: 30px; text-align: center; font-size: 14px; color: #666; }
+    body {{ font-family: Tahoma, sans-serif; padding: 30px; background-color: #ffffff; }}
+    h1 {{ color: #333; }}
+    h3 {{ margin-top: 20px; }}
+    p {{ color: #444; font-size: 16px; }}
+    a {{ color: #0077cc; text-decoration: none; }}
   </style>
 </head>
 <body>
-  <h1>🌍 Zaka Now - أحدث الأخبار بتقنية الذكاء الاصطناعي</h1>
-'''
-
-categories = {}
-for art in all_articles:
-    categories.setdefault(art["category"], []).append(art)
-
-for category, items in categories.items():
-    index_html += f"<h2>{category}</h2><ul>"
-    for art in items:
-        index_html += f"<li><a href='articles/{art['filename']}'>{art['title']}</a></li>"
-    index_html += "</ul>"
-
-index_html += f"<footer>آخر تحديث: {datetime.now().strftime('%Y-%m-%d %H:%M')} بواسطة الذكاء الاصطناعي</footer></body></html>"
-
-with open("index.html", "w", encoding="utf-8") as f:
-    f.write(index_html)
+  <h1>أحدث المقالات</h1>
+""")
+    for title, filename, summary in article_links:
+        f.write(f"<h3><a href='{filename}'>{title}</a></h3>\n<p>{summary}</p>\n<hr/>\n")
+    f.write("</body>\n</html>")
