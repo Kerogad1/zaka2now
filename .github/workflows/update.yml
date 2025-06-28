@@ -3,7 +3,7 @@ name: Update News Automatically
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'  # تشغيل يومي الساعة 12 منتصف الليل بتوقيت UTC
+    - cron: '0 0 * * *'  # Runs every day at midnight UTC
 
 jobs:
   update-news:
@@ -21,8 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install torch torchvision torchaudio
-          pip install feedparser transformers sentencepiece
-
+          pip install feedparser transformers sentencepiece protobuf
 
       - name: Run the news fetch script
         run: |
@@ -32,6 +31,6 @@ jobs:
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
-          git add articles/*.html articles.json || echo "No articles to add"
+          git add articles/*.html || echo "No articles to add"
           git commit -m "Update articles" || echo "No changes to commit"
           git push
